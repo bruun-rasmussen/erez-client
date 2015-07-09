@@ -180,7 +180,7 @@
 		<part name="result" type="xsd:base64Binary"/>
 	</message>
 	<message name="wsStoreSelectionRequest">
-		<part name="objects" type="xsd:ArrayOfstring" />
+		<part name="objects" type="tns:ArrayOfstring" />
 	</message>
 	<message name="wsStoreSelectionResponse">
 		<part name="result" type="xsd:string" />
