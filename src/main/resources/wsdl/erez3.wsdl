@@ -1,0 +1,422 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited by eRez Imaging Server at http://image.dtu.dk/erez4 -->
+<definitions targetNamespace="http://erez.yawah.com" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://erez.yawah.com" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsd4="urn:com.yawah.erez.WebService">
+	<types>
+		<xsd:schema targetNamespace="http://erez.yawah.com" xmlns="http://www.w3.org/2001/XMLSchema">
+			<complexType name="FileInfo">
+				<sequence>
+					<element name="fileName" type="xsd:string"/>
+					<element name="modTime" type="xsd:long"/>
+					<element name="isDirectory" type="xsd:boolean"/>
+					<element name="fileSize" type="xsd:long"/>
+				</sequence>
+			</complexType>
+			<complexType name="JobInfo">
+				<sequence>
+					<element name="status" type="xsd:int"/>
+					<element name="percentCompleted" type="xsd:int"/>
+					<element name="message" type="xsd:string"/>
+				</sequence>
+			</complexType>
+			<complexType name="ArrayOfFileInfo">
+				<complexContent>
+					<restriction base="SOAP-ENC:Array">
+						<attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="tns:FileInfo[]"/>
+					</restriction>
+				</complexContent>
+			</complexType>
+			<complexType name="ArrayOfIPTCField">
+				<complexContent>
+					<restriction base="SOAP-ENC:Array">
+						<attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="tns:IPTCField[]"/>
+					</restriction>
+				</complexContent>
+			</complexType>
+			<complexType name="IPTCField">
+				<sequence>
+					<element name="tag" type="xsd:int"/>
+					<element name="data" type="xsd:base64Binary"/>
+				</sequence>
+			</complexType>
+			<complexType name="ArrayOfstring">
+				<complexContent>
+					<restriction base="SOAP-ENC:Array">
+						<attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="xsd:string[]"/>
+					</restriction>
+				</complexContent>
+			</complexType>
+		</xsd:schema>
+	</types>
+	<message name="wsFileMoveResponse">
+		<part name="result" type="xsd:boolean"/>
+	</message>
+	<message name="wsFileGetIPTCResponse">
+		<part name="result" type="tns:ArrayOfIPTCField"/>
+	</message>
+	<message name="wsFileUpdateXMPRequest">
+		<part name="handle" type="xsd:string"/>
+		<part name="dst" type="xsd:string"/>
+		<part name="xmp" type="xsd:base64Binary"/>
+	</message>
+	<message name="wsFileGetIPTCRequest">
+		<part name="handle" type="xsd:string"/>
+		<part name="src" type="xsd:string"/>
+	</message>
+	<message name="wsSearchRequest">
+		<part name="handle" type="xsd:string"/>
+		<part name="query" type="xsd:string"/>
+		<part name="maxhits" type="xsd:int"/>
+	</message>
+	<message name="wsAddJobRequest">
+		<part name="handle" type="xsd:string"/>
+		<part name="src" type="xsd:string"/>
+		<part name="dst" type="xsd:string"/>
+		<part name="template" type="xsd:string"/>
+		<part name="top" type="xsd:float"/>
+		<part name="left" type="xsd:float"/>
+		<part name="bottom" type="xsd:float"/>
+		<part name="right" type="xsd:float"/>
+		<part name="angle" type="xsd:float"/>
+	</message>
+	<message name="wsFileUpdateIPTCResponse">
+		<part name="result" type="xsd:boolean"/>
+	</message>
+	<message name="wsListFilesRequest">
+		<part name="handle" type="xsd:string"/>
+		<part name="src" type="xsd:string"/>
+		<part name="filter" type="xsd:boolean"/>
+	</message>
+	<message name="wsLoginResponse">
+		<part name="handle" type="xsd:string"/>
+	</message>
+	<message name="wsFileDeleteRequest">
+		<part name="handle" type="xsd:string"/>
+		<part name="src" type="xsd:string"/>
+	</message>
+	<message name="wsFileGetXMPRequest">
+		<part name="handle" type="xsd:string"/>
+		<part name="src" type="xsd:string"/>
+	</message>
+	<message name="wsListFilesResponse">
+		<part name="result" type="tns:ArrayOfFileInfo"/>
+	</message>
+	<message name="wsSearchResponse">
+		<part name="result" type="tns:ArrayOfFileInfo"/>
+	</message>
+	<message name="wsGetJobStatusResponse">
+		<part name="result" type="tns:JobInfo"/>
+	</message>
+	<message name="wsFileInfoRequest">
+		<part name="handle" type="xsd:string"/>
+		<part name="src" type="xsd:string"/>
+		<part name="template" type="xsd:string"/>
+		<part name="escapetype" type="xsd:int"/>
+	</message>
+	<message name="wsAddJob2Response">
+		<part name="jobid" type="xsd:long"/>
+	</message>
+	<message name="wsFileCopyRequest">
+		<part name="handle" type="xsd:string"/>
+		<part name="src" type="xsd:string"/>
+		<part name="dst" type="xsd:string"/>
+	</message>
+	<message name="wsGetExtensionRequest">
+		<part name="template" type="xsd:string"/>
+	</message>
+	<message name="wsFileGetXMPResponse">
+		<part name="result" type="xsd:base64Binary"/>
+	</message>
+	<message name="wsLoginRequest">
+		<part name="login" type="xsd:string"/>
+		<part name="password" type="xsd:string"/>
+	</message>
+	<message name="wsFileUpdateIPTCRequest">
+		<part name="handle" type="xsd:string"/>
+		<part name="src" type="xsd:string"/>
+		<part name="iptc" type="tns:ArrayOfIPTCField"/>
+	</message>
+	<message name="wsFileUpdateXMPResponse">
+		<part name="result" type="xsd:boolean"/>
+	</message>
+	<message name="wsLogoutRequest">
+		<part name="handle" type="xsd:string"/>
+	</message>
+	<message name="wsLogoutResponse">   </message>
+	<message name="wsGetJobStatusRequest">
+		<part name="jobid" type="xsd:long"/>
+	</message>
+	<message name="wsAddJob2Request">
+		<part name="handle" type="xsd:string"/>
+		<part name="src" type="xsd:string"/>
+		<part name="dst" type="xsd:string"/>
+		<part name="template" type="xsd:string"/>
+		<part name="top" type="xsd:float"/>
+		<part name="left" type="xsd:float"/>
+		<part name="bottom" type="xsd:float"/>
+		<part name="right" type="xsd:float"/>
+		<part name="angle" type="xsd:float"/>
+		<part name="width" type="xsd:int"/>
+		<part name="height" type="xsd:int"/>
+		<part name="clippath" type="xsd:string"/>
+	</message>
+	<message name="wsAddJobResponse">
+		<part name="jobid" type="xsd:long"/>
+	</message>
+	<message name="wsFileCopyResponse">
+		<part name="result" type="xsd:boolean"/>
+	</message>
+	<message name="wsFileDeleteResponse">
+		<part name="result" type="xsd:boolean"/>
+	</message>
+	<message name="wsGetExtensionResponse">
+		<part name="extension" type="xsd:string"/>
+	</message>
+	<message name="wsFileMoveRequest">
+		<part name="handle" type="xsd:string"/>
+		<part name="src" type="xsd:string"/>
+		<part name="dst" type="xsd:string"/>
+	</message>
+	<message name="wsFileInfoResponse">
+		<part name="result" type="xsd:base64Binary"/>
+	</message>
+	<message name="wsStoreSelectionRequest">
+		<part name="objects" type="xsd:ArrayOfstring" />
+	</message>
+	<message name="wsStoreSelectionResponse">
+		<part name="result" type="xsd:string" />
+	</message>
+	
+	
+	<portType name="erez3PortType">
+		<operation name="wsLogin">
+			<input message="tns:wsLoginRequest"/>
+			<output message="tns:wsLoginResponse"/>
+		</operation>
+		<operation name="wsLogout">
+			<input message="tns:wsLogoutRequest"/>
+			<output message="tns:wsLogoutResponse"/>
+		</operation>
+		<operation name="wsListFiles">
+			<input message="tns:wsListFilesRequest"/>
+			<output message="tns:wsListFilesResponse"/>
+		</operation>
+		<operation name="wsSearch">
+			<input message="tns:wsSearchRequest"/>
+			<output message="tns:wsSearchResponse"/>
+		</operation>
+		<operation name="wsFileInfo">
+			<input message="tns:wsFileInfoRequest"/>
+			<output message="tns:wsFileInfoResponse"/>
+		</operation>
+		<operation name="wsFileGetIPTC">
+			<input message="tns:wsFileGetIPTCRequest"/>
+			<output message="tns:wsFileGetIPTCResponse"/>
+		</operation>
+		<operation name="wsFileUpdateIPTC">
+			<input message="tns:wsFileUpdateIPTCRequest"/>
+			<output message="tns:wsFileUpdateIPTCResponse"/>
+		</operation>
+		<operation name="wsFileGetXMP">
+			<input message="tns:wsFileGetXMPRequest"/>
+			<output message="tns:wsFileGetXMPResponse"/>
+		</operation>
+		<operation name="wsFileUpdateXMP">
+			<input message="tns:wsFileUpdateXMPRequest"/>
+			<output message="tns:wsFileUpdateXMPResponse"/>
+		</operation>
+		<operation name="wsFileMove">
+			<input message="tns:wsFileMoveRequest"/>
+			<output message="tns:wsFileMoveResponse"/>
+		</operation>
+		<operation name="wsFileDelete">
+			<input message="tns:wsFileDeleteRequest"/>
+			<output message="tns:wsFileDeleteResponse"/>
+		</operation>
+		<operation name="wsFileCopy">
+			<input message="tns:wsFileCopyRequest"/>
+			<output message="tns:wsFileCopyResponse"/>
+		</operation>
+		<operation name="wsAddJob">
+			<input message="tns:wsAddJobRequest"/>
+			<output message="tns:wsAddJobResponse"/>
+		</operation>
+		<operation name="wsAddJob2">
+			<input message="tns:wsAddJob2Request"/>
+			<output message="tns:wsAddJob2Response"/>
+		</operation>
+		<operation name="wsGetJobStatus">
+			<input message="tns:wsGetJobStatusRequest"/>
+			<output message="tns:wsGetJobStatusResponse"/>
+		</operation>
+		<operation name="wsGetExtension">
+			<input message="tns:wsGetExtensionRequest"/>
+			<output message="tns:wsGetExtensionResponse"/>
+		</operation>
+		<operation name="wsStoreSelection">
+			<input message="tns:wsStoreSelectionRequest" />
+			<output message="tns:wsStoreSelectionResponse" />
+		</operation>
+	</portType>
+	<binding name="erez3Binding" type="tns:erez3PortType">
+		<soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<operation name="wsLogin">
+			<soap:operation/>
+			<input>
+				<soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://erez.yawah.com" use="encoded"/>
+			</input>
+			<output>
+				<soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://erez.yawah.com" use="encoded"/>
+			</output>
+		</operation>
+		<operation name="wsLogout">
+			<soap:operation/>
+			<input>
+				<soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://erez.yawah.com" use="encoded"/>
+			</input>
+			<output>
+				<soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://erez.yawah.com" use="encoded"/>
+			</output>
+		</operation>
+		<operation name="wsListFiles">
+			<soap:operation/>
+			<input>
+				<soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://erez.yawah.com" use="encoded"/>
+			</input>
+			<output>
+				<soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://erez.yawah.com" use="encoded"/>
+			</output>
+		</operation>
+		<operation name="wsSearch">
+			<soap:operation/>
+			<input>
+				<soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://erez.yawah.com" use="encoded"/>
+			</input>
+			<output>
+				<soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://erez.yawah.com" use="encoded"/>
+			</output>
+		</operation>
+		<operation name="wsFileInfo">
+			<soap:operation/>
+			<input>
+				<soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://erez.yawah.com" use="encoded"/>
+			</input>
+			<output>
+				<soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://erez.yawah.com" use="encoded"/>
+			</output>
+		</operation>
+		<operation name="wsFileGetIPTC">
+			<soap:operation/>
+			<input>
+				<soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://erez.yawah.com" use="encoded"/>
+			</input>
+			<output>
+				<soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://erez.yawah.com" use="encoded"/>
+			</output>
+		</operation>
+		<operation name="wsFileGetXMP">
+			<soap:operation/>
+			<input>
+				<soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://erez.yawah.com" use="encoded"/>
+			</input>
+			<output>
+				<soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://erez.yawah.com" use="encoded"/>
+			</output>
+		</operation>
+		<operation name="wsFileUpdateIPTC">
+			<soap:operation/>
+			<input>
+				<soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://erez.yawah.com" use="encoded"/>
+			</input>
+			<output>
+				<soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://erez.yawah.com" use="encoded"/>
+			</output>
+		</operation>
+		<operation name="wsFileUpdateXMP">
+			<soap:operation/>
+			<input>
+				<soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://erez.yawah.com" use="encoded"/>
+			</input>
+			<output>
+				<soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://erez.yawah.com" use="encoded"/>
+			</output>
+		</operation>
+		<operation name="wsFileMove">
+			<soap:operation/>
+			<input>
+				<soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://erez.yawah.com" use="encoded"/>
+			</input>
+			<output>
+				<soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://erez.yawah.com" use="encoded"/>
+			</output>
+		</operation>
+		<operation name="wsFileDelete">
+			<soap:operation/>
+			<input>
+				<soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://erez.yawah.com" use="encoded"/>
+			</input>
+			<output>
+				<soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://erez.yawah.com" use="encoded"/>
+			</output>
+		</operation>
+		<operation name="wsFileCopy">
+			<soap:operation/>
+			<input>
+				<soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://erez.yawah.com" use="encoded"/>
+			</input>
+			<output>
+				<soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://erez.yawah.com" use="encoded"/>
+			</output>
+		</operation>
+		<operation name="wsAddJob">
+			<soap:operation/>
+			<input>
+				<soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://erez.yawah.com" use="encoded"/>
+			</input>
+			<output>
+				<soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://erez.yawah.com" use="encoded"/>
+			</output>
+		</operation>
+		<operation name="wsAddJob2">
+			<soap:operation/>
+			<input>
+				<soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://erez.yawah.com" use="encoded"/>
+			</input>
+			<output>
+				<soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://erez.yawah.com" use="encoded"/>
+			</output>
+		</operation>
+		<operation name="wsGetJobStatus">
+			<soap:operation/>
+			<input>
+				<soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://erez.yawah.com" use="encoded"/>
+			</input>
+			<output>
+				<soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://erez.yawah.com" use="encoded"/>
+			</output>
+		</operation>
+		<operation name="wsGetExtension">
+			<soap:operation/>
+			<input>
+				<soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://erez.yawah.com" use="encoded"/>
+			</input>
+			<output>
+				<soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://erez.yawah.com" use="encoded"/>
+			</output>
+		</operation>
+		<operation name="wsStoreSelection">
+			<soap:operation soapAction="" />
+			<input>
+				<soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://erez.yawah.com" use="encoded" />
+			</input>
+			<output>
+				<soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://erez.yawah.com" use="encoded" />
+			</output>
+		</operation>
+	</binding>
+	<service name="erez3">
+		<documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">eRez Imaging Server 4.0</documentation>
+		<port binding="tns:erez3Binding" name="erez3Port">
+			<soap:address location="http://image.dtu.dk/erez4/rpc"/>
+		</port>
+	</service>
+</definitions>
