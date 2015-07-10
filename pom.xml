@@ -4,7 +4,7 @@
 
     <groupId>dk.es.br.erez</groupId>
     <artifactId>erez-soapclient</artifactId>
-    <version>0.1-SNAPSHOT</version>
+    <version>0.1</version>
 
     <name>eRez SOAP client</name>
     <url>http://image.dtu.dk/erez4/</url>
