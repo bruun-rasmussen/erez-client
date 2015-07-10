@@ -3,10 +3,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>dk.es.br.erez</groupId>
-    <artifactId>erez-client</artifactId>
+    <artifactId>erez-soapclient</artifactId>
     <version>0.1-SNAPSHOT</version>
 
-    <name>eRez service client</name>
+    <name>eRez SOAP client</name>
     <url>http://image.dtu.dk/erez4/</url>
 
     <description>
@@ -25,6 +25,9 @@
 
     <build>
         <plugins>
+            <!--
+             ! wget 'http://image.dtu.dk/erez4/erez?cmd=expand&amp;vtl=soap/erez3.wsdl' -O src/main/resources/wsdl/erez3.wsld
+             ! -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>axistools-maven-plugin</artifactId>
@@ -37,7 +40,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <packageSpace>com.mycompany.service.client</packageSpace>
+                    <packageSpace>${project.groupId}</packageSpace>
                     <sourceDirectory>src/main/resources/wsdl</sourceDirectory>
                     <outputDirectory>target/generated-sources/wsdl2java</outputDirectory>
                 </configuration>
@@ -75,11 +78,6 @@
             <groupId>org.apache.axis</groupId>
             <artifactId>axis-jaxrpc</artifactId>
             <version>1.4</version>
-        </dependency>
-        <dependency>
-            <groupId>wsdl4j</groupId>
-            <artifactId>wsdl4j</artifactId>
-            <version>1.6.2</version>
         </dependency>
     </dependencies>
 
