@@ -40,7 +40,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <packageSpace>${project.groupId}</packageSpace>
+                    <packageSpace>com.yawah.erez.pub.rpc</packageSpace>
                     <sourceDirectory>src/main/resources/wsdl</sourceDirectory>
                     <outputDirectory>target/generated-sources/wsdl2java</outputDirectory>
                 </configuration>
@@ -70,14 +70,26 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.apache.axis</groupId>
+            <groupId>axis</groupId>
             <artifactId>axis</artifactId>
             <version>1.4</version>
         </dependency>
-        <dependency>
+        <!-- dependency>
             <groupId>org.apache.axis</groupId>
             <artifactId>axis-jaxrpc</artifactId>
             <version>1.4</version>
+        </dependency -->
+
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>6.8.1</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.5.6</version>
         </dependency>
     </dependencies>
 
