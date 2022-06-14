@@ -23,63 +23,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
-    <build>
-        <plugins>
-            <!--
-             ! wget 'http://image.dtu.dk/erez4/erez?cmd=expand&amp;vtl=soap/erez3.wsdl' -O src/main/resources/wsdl/erez3.wsld
-             ! -->
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>axistools-maven-plugin</artifactId>
-                <version>1.4</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>wsdl2java</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <packageSpace>com.yawah.erez.pub.rpc</packageSpace>
-                    <sourceDirectory>src/main/resources/wsdl</sourceDirectory>
-                    <outputDirectory>target/generated-sources/wsdl2java</outputDirectory>
-                </configuration>
-            </plugin>
-
-            <!--plugin>
-                <groupId>org.jvnet.jax-ws-commons</groupId>
-                <artifactId>jaxws-maven-plugin</artifactId>
-                <version>2.3</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>wsimport</goal>
-                        </goals>
-                        <configuration>
-                            <target>2.1</target>
-                            <verbose>true</verbose>
-                            <wsdlUrls>
-                                <wsdlUrl>http://image.dtu.dk/erez4/erez?cmd=expand&amp;vtl=soap/erez3.wsdl</wsdlUrl>
-                            </wsdlUrls>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin-->
-        </plugins>
-    </build>
-
     <dependencies>
-        <dependency>
-            <groupId>axis</groupId>
-            <artifactId>axis</artifactId>
-            <version>1.4</version>
-        </dependency>
-        <!-- dependency>
-            <groupId>org.apache.axis</groupId>
-            <artifactId>axis-jaxrpc</artifactId>
-            <version>1.4</version>
-        </dependency -->
-
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
@@ -93,4 +37,96 @@
         </dependency>
     </dependencies>
 
+    <profiles>
+        <profile>
+            <id>axis</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <dependencies>
+                <dependency>
+                  <groupId>org.apache.axis</groupId>
+                  <artifactId>axis</artifactId>
+                  <version>1.4</version>
+                </dependency>
+                <dependency>
+                  <groupId>org.apache.axis</groupId>
+                  <artifactId>axis-jaxrpc</artifactId>
+                  <version>1.4</version>
+                </dependency>
+
+                <dependency>
+                  <groupId>org.apache.axis</groupId>
+                  <artifactId>axis-saaj</artifactId>
+                  <version>1.4</version>
+                  <scope>runtime</scope>
+                </dependency>
+                <dependency>
+                  <groupId>commons-discovery</groupId>
+                  <artifactId>commons-discovery</artifactId>
+                  <version>0.2</version>
+                  <scope>runtime</scope>
+                </dependency>
+                <dependency>
+                    <groupId>wsdl4j</groupId>
+                    <artifactId>wsdl4j</artifactId>
+                    <version>1.6.3</version>
+                  <scope>runtime</scope>
+                </dependency>
+            </dependencies>
+
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>axistools-maven-plugin</artifactId>
+                        <version>1.4</version>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>wsdl2java</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <packageSpace>com.yawah.erez.pub.rpc</packageSpace>
+                            <sourceDirectory>src/main/resources/wsdl</sourceDirectory>
+                            <outputDirectory>target/generated-sources/wsdl2java</outputDirectory>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>jax-ws</id>
+
+            <build>
+                <plugins>
+                    <!--
+                    ! wget 'http://image.dtu.dk/erez4/erez?cmd=expand&amp;vtl=soap/erez3.wsdl' -O src/main/resources/wsdl/erez3.wsld
+                    ! -->
+
+                    <plugin>
+                        <groupId>org.jvnet.jax-ws-commons</groupId>
+                        <artifactId>jaxws-maven-plugin</artifactId>
+                        <version>2.3</version>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>wsimport</goal>
+                                </goals>
+                                <configuration>
+                                    <target>2.1</target>
+                                    <verbose>true</verbose>
+                                    <wsdlDirectory>src/main/resources/wsdl</wsdlDirectory>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>
